@@ -1,0 +1,29 @@
+<html>
+
+<head>
+    <title>Add Map</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="index.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEYcallback=initMap"
+        defer></script>
+
+</head>
+
+<body>
+    <!--The div element for the map -->
+    <div id="map"></div>
+
+    <form action="" style="margin-top: 20px;">
+        <input type="text" name="latitude" value="" placeholder="latitude" id="latitude" />
+        <input type="text" name="longitude" value="" placeholder="longitude" id="longitude" />
+        <input type="text" name="city" value="" placeholder="City" id="input-city" />
+        <input type="text" name="postcode" value="" placeholder="Post Code" id="input-postcode" />
+        <input type="text" name="country_id" value="" placeholder="country" id="input-country" />
+        <input type="text" name="zone_id" value="" placeholder="zone" id="input-zone" />
+    </form>
+</body>
+
+</html>
