@@ -19,7 +19,7 @@
 
     <script src="index.js"></script>
     <script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDrSnRvGnXZSyquK9Oyv9vRijO1Cfj9Ek4&callback=initMap&libraries=places"
+        src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap&libraries=places"
         defer></script>
 
 </head>
@@ -27,7 +27,7 @@
 <body>
     <!--The div element for the map -->
 
-   
+
 
     <!-- Modal Body -->
     <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
@@ -40,7 +40,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div id="map"></div>
+                    <div id="map" style="height: 600px; width: 100%;"></div>
                     <div class="text-center">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
@@ -57,6 +57,7 @@
         <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#mapModal">
             Select Location
         </button>
+        
         <form action="" onsubmit="alert('data submitted'); return false" style="margin-top: 20px;"
             class="d-flex align-items-end gap-2">
             <div class="mb-2">
@@ -68,12 +69,69 @@
                 <input type="text" name="longitude" value="" placeholder="longitude" id="longitude"
                     class="form-control" />
             </div>
-            
+
             <div class="mb-2">
                 <button class="btn btn-primary" type="submit">Save data</button>
             </div>
         </form>
     </div>
+
+    <script>
+        function initMap() {
+            var map
+            var marker
+            var infowindow
+            var myLatlng = new google.maps.LatLng(23.8103, 90.4125)
+            var myMap = document.getElementById("map")
+
+            map = new google.maps.Map(myMap, {
+                zoom: 13,
+                center: myLatlng
+            })
+
+            marker = new google.maps.Marker({
+                position: myLatlng,
+                map: map,
+                draggable: true
+            })
+
+            infowindow = new google.maps.InfoWindow({
+                content: 'Point your location',
+                ariaLabel: "location",
+            })
+
+            map.addListener('click', function (event) {
+                marker.setPosition(event.latLng.toJSON())
+                setLatLngInputs()
+                infowindow.open({
+                    anchor: marker,
+                    map
+                })
+            })
+
+            marker.addListener('dragend', function (event) {
+                setLatLngInputs()
+                infowindow.open({
+                    anchor: marker,
+                    map
+                })
+            })
+
+            marker.addListener("click", () => {
+                infowindow.open({
+                    anchor: marker,
+                    map
+                })
+            })
+
+            function setLatLngInputs() {
+                $('#latitude').val(marker.getPosition().lat())
+                $('#longitude').val(marker.getPosition().lng())
+            }
+
+
+        }
+    </script>
 </body>
 
 </html>
